@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuenta Regresiva</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            background: #e0c3fc; /* Color base lila claro */
+            font-family: Arial, sans-serif;
+            color: #fff;
+        }
+
+        /* Estilos para la animación de fondo */
+        .background-animation {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background: url('FB_IMG_1723259611367.jpg') no-repeat center center fixed;
+            background-size: cover;
+            animation: slide 30s infinite alternate;
+            z-index: -1;
+            filter: blur(8px) brightness(0.7);
+        }
+
+        @keyframes slide {
+            0% {
+                transform: translate(0, 0) scale(1.1);
+            }
+            50% {
+                transform: translate(-10%, 10%) scale(1.15);
+            }
+            100% {
+                transform: translate(10%, -10%) scale(1.1);
+            }
+        }
+
+        #countdown {
+            text-align: center;
+            font-size: 2em;
+            background: rgba(76, 0, 130, 0.7); /* Fondo con tono lila */
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            color: #e0b3ff;
+        }
+
+        #timer {
+            font-size: 1.5em;
+            margin-top: 10px;
+            display: block;
+            color: #dfc3f2; /* Tono lila claro */
+        }
+
+        #action-button {
+            display: none;
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1em;
+            color: #fff;
+            background-color: #6a0dad; /* Tono lila para el botón */
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #action-button:hover {
+            background-color: #5c00a3; /* Tono lila más oscuro al pasar el cursor */
+        }
+    </style>
+</head>
+<body>
+    <div class="background-animation"></div>
+
+    <div id="countdown">
+        <p>Cuenta regresiva para el 15 de septiembre de 2024:</p>
+        <span id="timer"></span>
+        <button id="action-button" onclick="window.open('yas.html', '_blank')">Abrir Enlace</button> <!-- Botón para abrir el enlace -->
+    </div>
+
+    <script>
+        // Fecha objetivo: 15 de septiembre de 2024
+        const targetDate = new Date('September 15, 2024 00:00:00').getTime();
+
+        const countdown = setInterval(() => {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            // Cálculo de días, horas, minutos y segundos
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Mostrar el resultado
+            document.getElementById("timer").innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+
+            // Si la cuenta regresiva termina
+            if (distance < 0) {
+                clearInterval(countdown);
+                document.getElementById("timer").innerHTML = "¡Llegó el día!";
+                document.getElementById("action-button").style.display = 'inline-block'; // Muestra el botón
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
